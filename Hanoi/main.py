@@ -22,10 +22,7 @@ class Hanoi():
         self.raiz = No(estado=self.estado_inicial, custo=1, heuristica = self.heuristica_inicial())
 
     def heuristica(self):
-        numTorres = len(self.estado_inicial)
-        numDiscos = len(self.estado_inicial[0])
-        
-        return ((numTorres - 1) ** numDiscos) - 1 
+        pass
 
     def acao(self, origem, destino, no: No):
         estado_atual = list(np.copy(no.estado))
@@ -38,12 +35,18 @@ class Hanoi():
 
     def gerar_sucessores(self, no: No):
         estado = no.estado
-        sucessores = []
+        sucessores = [] 
 
-        if(self.acao())
+        expansoes = [torre for torre in estado]
+        
+        for origem in expansoes:
+            for destino in expansoes:
+                if expansoes.index(destino) != expansoes.index(origem):
+                   sucessor = self.acao(origem, destino, no)
+                   if self.valida_estado(sucessor):
+                    sucessores.append(sucessor)     
 
-
-        pass
+        return sucessores
 
     def valida_estado(self, no: No):
         for torre in no.estado:
@@ -52,4 +55,6 @@ class Hanoi():
         
         return True
             
-        
+
+    def custo(self, no: No = None):
+        return 1   
