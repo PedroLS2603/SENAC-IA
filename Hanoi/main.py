@@ -58,3 +58,10 @@ class Hanoi():
 
     def custo(self, no: No = None):
         return 1   
+
+    def valida_resolucao(self, no: No):
+        if no.estado == self.estado_final:
+            return True
+        
+        return False
+    
