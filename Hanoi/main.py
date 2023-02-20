@@ -25,7 +25,7 @@ class Hanoi():
         pass
 
     def acao(self, origem, destino, no: No):
-        estado_atual = list(np.copy(no.estado))
+        estado_atual = list.copy(no.estado)
 
         disco = estado_atual[origem].pop()
         estado_atual[destino].append(disco)
@@ -41,8 +41,10 @@ class Hanoi():
         
         for origem in expansoes:
             for destino in expansoes:
-                if expansoes.index(destino) != expansoes.index(origem):
-                   sucessor = self.acao(origem, destino, no)
+                idx_origem = expansoes.index(origem)
+                idx_destino = expansoes.index(destino)
+                if idx_destino != idx_origem:
+                   sucessor = self.acao(idx_origem, idx_destino, no)
                    if self.valida_estado(sucessor):
                     sucessores.append(sucessor)     
 
@@ -60,8 +62,5 @@ class Hanoi():
         return 1   
 
     def valida_resolucao(self, no: No):
-        if no.estado == self.estado_final:
-            return True
-        
-        return False
+        return no.estado == self.estado_final
     
