@@ -31,9 +31,9 @@ class Hanoi():
         return self.raiz
 
     def heuristica(self, no:No = None):
-        valor = self.bla
-        self.bla -= 1
-        return valor
+        if no == None:
+            return 0 
+        return -len(no.estado[-1])
 
     def acao(self, origem, destino, no: No):
         estado_atual = list()
@@ -63,15 +63,12 @@ class Hanoi():
         
         for origem in range(len(expansoes)):
             for destino in range(len(expansoes)):
-                
-
-                # print(f"{expansoes[origem]}({origem}) -> {expansoes[destino]}({destino})")
-
                 if destino != origem and len(expansoes[origem]) > 0:
                    sucessor = self.acao(origem, destino, no)
                    if self.valida_estado(sucessor):
                     sucessores.append(sucessor)
-                    # print(sucessor.estado)     
+                    print(f"{expansoes[origem]}({origem}) -> {expansoes[destino]}({destino})")
+
 
         return sucessores
 
