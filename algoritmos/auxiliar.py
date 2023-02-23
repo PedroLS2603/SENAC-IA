@@ -23,7 +23,7 @@ class Visitados:
     self.visitados = set({})
   
   def adicionar(self, no):
-    self.visitados.add(tuple(x for x in no.estado))
+    self.visitados.add(tuple(no.estado))
   
   def foi_visitado(self, no):
     return tuple(no.estado) in self.visitados
