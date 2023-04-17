@@ -1,5 +1,5 @@
-GERACOES_MAX = 1000
-ERRO_MIN = 0.1
+GERACOES_MAX = 5000
+ERRO_MIN = 1e-9
 
 class AlgoritmoGeneticoPopulacao:
   def __init__(self, populacao, geracoes_max=GERACOES_MAX,
@@ -25,12 +25,11 @@ class AlgoritmoGeneticoPopulacao:
         populacao_crossover = self.populacao.crossover()
         self.populacao.selecionar(populacao_mutada, populacao_crossover)
         fitness = self.populacao.top_fitness()
-
-        if fitness < ultimo_fitness:
+        if fitness > ultimo_fitness:
           self.erro = abs(fitness - ultimo_fitness)
           ultimo_fitness = fitness
         self.geracoes += 1
-        if self.geracoes % 1 == 0: print(f"Geração: {self.geracoes}, Fitness: {fitness}, individuo:{self.populacao.top_individuo()}")
+        if self.geracoes % 1 == 0: print(f"Geração: {self.geracoes}, Fitness: {fitness}, Erro: {self.erro}")
       else:
         break
     return self.populacao.top_individuo()

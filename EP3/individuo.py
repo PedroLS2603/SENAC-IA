@@ -14,12 +14,11 @@ class Individuo:
             self.imagem = self.rand()
             rota = self.rota()
         else:
+            #Removendo duplicadas de cross-over
             escondidos = DOMINIO_GENE[-1]
-            imagem = list(set(imagem))
-            imagem.append(escondidos)
             self.imagem = imagem
-        rota = self.rota()            
 
+        rota = self.rota()
         #Gerando array de deslocamentos
         for i in range(len(rota)):
             if i == len(rota) - 1:
@@ -30,6 +29,7 @@ class Individuo:
             if origem.nome == destino.nome:
                 continue
             self.deslocamentos.append([deslocamento for deslocamento in DESLOCAMENTOS if ((deslocamento.origem.nome == origem.nome and deslocamento.destino.nome == destino.nome) or (deslocamento.origem.nome == destino.nome and deslocamento.destino.nome == origem.nome))][0])
+    
     def mutacao(self):
         copy_imagem = deepcopy(self.imagem)
         while True:
@@ -45,10 +45,10 @@ class Individuo:
             copy_imagem[i_substituido] = substituto
             copy_imagem[i_substituto] = substituido
 
-            print(copy_imagem)
             if self.valida_mutacao(copy_imagem):
                 return Individuo(copy_imagem)
 
+    # Garante que as mutações vão estar com pelo menos 1 cidade na rota e que obedeçam o formato estabelecido
     def valida_mutacao(self, imagem = None):
         if imagem == None:
             imagem = self.imagem
@@ -61,11 +61,15 @@ class Individuo:
         tempo_gasto = self.tempo_total()
         montante = self.custo_total()
         
+        #Aplicando peso de tempo gasto + peso
+        fit = (montante - ((tempo_gasto*0.6) + (peso*0.4)))
+
+        #Retornando valor negativo para evitar comparação entre -inf
         if tempo_gasto > 72 or peso > 20 or not self.valida_mutacao():
-            return -(montante + ((tempo_gasto*0.6) + (peso*0.4)))
+            return -fit
 
         
-        return montante + ((tempo_gasto*0.6) + (peso*0.4))
+        return fit
 
     def rota(self, imagem = None):
         if imagem == None:
@@ -73,16 +77,7 @@ class Individuo:
         imagem = self.imagem
         idx_escondidos = imagem[1:].index([cidade for cidade in imagem[1:] if cidade.nome == "Escondidos"][0]) + 1
 
-        return imagem[:idx_escondidos] 
-
-    def fora_de_rota(self, imagem = None):
-        if imagem == None:
-            imagem = deepcopy(self.imagem)
-
-        idx_escondidos = imagem[1:].index([cidade for cidade in imagem[1:] if cidade.nome == "Escondidos"][0]) + 1
-
-        return imagem[idx_escondidos:] 
-
+        return imagem[1:idx_escondidos] 
 
     def custo_total(self):
         montante_rota = np.array([cidade.valor for cidade in self.rota()]).sum()
@@ -103,7 +98,7 @@ class Individuo:
 
     def rand(self):
         #Gerando segunda ocorrência de Escondidos para gerar a rota completa
-        escondidos = [cidade for cidade in DOMINIO_GENE if cidade.nome == "Escondidos"][0]
+        escondidos = DOMINIO_GENE[-1]
         copy_dominio = deepcopy(DOMINIO_GENE)      
         while True:
             amostra = random.sample(copy_dominio, len(copy_dominio))
@@ -111,6 +106,7 @@ class Individuo:
 
             if amostra[1].nome != "Escondidos":
                 return amostra
+            
             
     def __repr__(self):
         rota = self.rota()

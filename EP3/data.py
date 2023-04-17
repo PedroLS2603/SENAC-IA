@@ -5,6 +5,7 @@ import pandas as pd
 DOMINIO_GENE = []
 DESLOCAMENTOS = []
 
+# Configura as variáveis globais de domínio
 def configurar_dominio():
   itens = pd.read_csv("itens.csv").fillna(0)
   deslocamentos = pd.read_csv("deslocamentos.csv")

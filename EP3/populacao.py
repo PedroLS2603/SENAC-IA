@@ -32,23 +32,31 @@ class Populacao:
     populacao_direita = copy_populacao[metade:]
 
     for c in range(metade):
-      individuo_esquerda = populacao_esquerda[c].imagem
-      individuo_direita = populacao_direita[c].imagem
+      individuo_esquerda = populacao_esquerda[c].rota()
+      individuo_direita = populacao_direita[c].rota()
 
-      corte = floor(0.7 * len(individuo_direita))  
+      #Aplicando divisão 70-30
+      corte_dir = floor(0.7 * len(individuo_direita))  
+      corte_esq = floor(0.7 * len(individuo_esquerda))  
 
-      setenta_esquerda = individuo_esquerda[:corte]
-      setenta_direita = individuo_direita[:corte]
+      setenta_esquerda = individuo_esquerda[:corte_esq]
+      setenta_direita = individuo_direita[:corte_dir]
+      
+      trinta_esquerda = individuo_esquerda[corte_esq:]
+      trinta_direita = individuo_direita[corte_dir:]
 
-      trinta_esquerda = individuo_esquerda[corte:]
-      trinta_direita = individuo_direita[:corte]
+      #Intercalando os genes
+      r1 = setenta_esquerda + trinta_direita
+      r2 = setenta_direita + trinta_esquerda
+      
+      ind1 = r1 + [DOMINIO_GENE[-1]] + [cidade for cidade in DOMINIO_GENE if cidade.nome not in [cidade2.nome for cidade2 in r1]]
+      ind2 = r2 + [DOMINIO_GENE[-1]] + [cidade for cidade in DOMINIO_GENE if cidade.nome not in [cidade2.nome for cidade2 in r2]]
 
-      novo_individuo_1 = setenta_esquerda + trinta_direita
-      novo_individuo_2 = setenta_direita + trinta_esquerda
 
-      rotas_novos_individuos.append(novo_individuo_1)
-      rotas_novos_individuos.append(novo_individuo_2)
+      rotas_novos_individuos.append(ind1)
+      rotas_novos_individuos.append(ind2)
 
+    #Gerando novos indivíduos
     for rota in rotas_novos_individuos:
       nova_populacao.append(Individuo(imagem=rota))
 
