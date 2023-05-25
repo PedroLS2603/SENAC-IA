@@ -1,0 +1,7 @@
+{
+    "positivas":["Excelente","Maravilhoso","Fantastico","Surpreendente","Otimo","Perfeito","Impressionante","Fantabuloso","Excepcional","Estupendo","Magnifico","Espetacular","Extraordinario","Incrivel","Sensacional","Fabuloso","Notavel","Deslumbrante","Brilhante","Impecavel","Agradavel","Confiavel","Recomendo","Satisfeito", "Bom", "Interessante", "Legal", "Gosto"],
+    "negativas":["Odioso","Repugnante","Abominavel","Irritante","Insuportavel","Detestavel","Ridiculo","Desprezivel","Nojento","Desagradavel","Frustrante","Enfadonho","Desinteressante","Desrespeitoso","Ofensivo","Chato","Entediante","Irracional","Inaceitavel","Injusto","Incompreensivel","Desleal","Enganador","Desonesto","Desorganizado", "Ruim"],
+    "intensificadores":["Muito","Extremamente","Altamente","Bastante","Super","Realmente","Totalmente","Absolutamente","Completamente","Incrivelmente","Surpreendentemente","Enormemente","Excessivamente","Verdadeiramente","Profundamente","Intensamente","Excepcionalmente","Notavelmente","Extraordinariamente","Absurdamente"],
+    "negacoes":["Nao","Nunca","Jamais","Nada","Raramente","Longe","Tampouco","Menos","Deveras","Nem", "Mas"],
+    "frases":["Fim de semestre e muito bom", "Percevejo e irritante", "Figado e muito ruim", "O clima esta fantastico", "Recomendo estudar IA, muito interessante", "Esse jogo e super legal", "a serie grimm e ruim, mas eu gosto"]
+}
